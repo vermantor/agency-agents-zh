@@ -158,7 +158,9 @@ convert_opencode() {
 
   name="$(get_field "name" "$file")"
   description="$(get_field "description" "$file")"
-  color="$(resolve_opencode_color "$(get_field "color" "$file")")"
+  local raw_color
+  raw_color="$(get_field "color" "$file" | tr -d '"')"
+  color="$(resolve_opencode_color "$raw_color")"
   slug="$(slugify_from_file "$file")"
   body="$(get_body "$file")"
 
@@ -170,7 +172,7 @@ convert_opencode() {
 name: ${name}
 description: ${description}
 mode: subagent
-color: ${color}
+color: "${color}"
 ---
 ${body}
 HEREDOC

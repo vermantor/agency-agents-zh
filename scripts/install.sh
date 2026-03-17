@@ -15,6 +15,7 @@
 #   gemini-cli   -- 安装到 ~/.gemini/extensions/agency-agents/
 #   opencode     -- 复制到 .opencode/agent/（当前目录）
 #   cursor       -- 复制到 .cursor/rules/（当前目录）
+#   trae         -- 复制到 .trae/rules/（当前目录）
 #   aider        -- 复制 CONVENTIONS.md（当前目录）
 #   windsurf     -- 复制 .windsurfrules（当前目录）
 #   openclaw     -- 复制到 ~/.openclaw/agency-agents/
@@ -42,7 +43,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 INTEGRATIONS="$REPO_ROOT/integrations"
 
-ALL_TOOLS=(claude-code copilot antigravity gemini-cli opencode openclaw cursor aider windsurf qwen)
+ALL_TOOLS=(claude-code copilot antigravity gemini-cli opencode openclaw cursor trae aider windsurf qwen)
 
 # --- 用法 ---
 usage() {
@@ -64,6 +65,7 @@ detect_copilot()      { command -v code >/dev/null 2>&1 || [[ -d "${HOME}/.githu
 detect_antigravity()  { [[ -d "${HOME}/.gemini/antigravity/skills" ]]; }
 detect_gemini_cli()   { command -v gemini >/dev/null 2>&1 || [[ -d "${HOME}/.gemini" ]]; }
 detect_cursor()       { command -v cursor >/dev/null 2>&1 || [[ -d "${HOME}/.cursor" ]]; }
+detect_trae()         { command -v trae >/dev/null 2>&1 || [[ -d "${HOME}/.trae" ]]; }
 detect_opencode()     { command -v opencode >/dev/null 2>&1 || [[ -d "${HOME}/.config/opencode" ]]; }
 detect_aider()        { command -v aider >/dev/null 2>&1; }
 detect_openclaw()     { command -v openclaw >/dev/null 2>&1 || [[ -d "${HOME}/.openclaw" ]]; }
@@ -79,6 +81,7 @@ is_detected() {
     opencode)    detect_opencode    ;;
     openclaw)    detect_openclaw    ;;
     cursor)      detect_cursor      ;;
+    trae)        detect_trae        ;;
     aider)       detect_aider       ;;
     windsurf)    detect_windsurf    ;;
     qwen)        detect_qwen        ;;
@@ -228,6 +231,20 @@ install_cursor() {
   warn "Cursor: 项目级安装。请在项目根目录运行。"
 }
 
+install_trae() {
+  local src="$INTEGRATIONS/trae/rules"
+  local dest="${PWD}/.trae/rules"
+  local count=0
+  [[ -d "$src" ]] || { err "integrations/trae 不存在。请先运行 convert.sh --tool trae"; return 1; }
+  mkdir -p "$dest"
+  local f
+  while IFS= read -r -d '' f; do
+    cp "$f" "$dest/"; (( count++ )) || true
+  done < <(find "$src" -maxdepth 1 -name "*.md" -print0)
+  ok "Trae: $count 个规则 -> $dest"
+  warn "Trae: 项目级安装。请在项目根目录运行。"
+}
+
 install_aider() {
   local src="$INTEGRATIONS/aider/CONVENTIONS.md"
   local dest="${PWD}/CONVENTIONS.md"
@@ -283,6 +300,7 @@ install_tool() {
     opencode)    install_opencode    ;;
     openclaw)    install_openclaw    ;;
     cursor)      install_cursor      ;;
+    trae)        install_trae        ;;
     aider)       install_aider       ;;
     windsurf)    install_windsurf    ;;
     qwen)        install_qwen        ;;

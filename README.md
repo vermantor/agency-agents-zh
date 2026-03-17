@@ -14,7 +14,7 @@ Chinese community edition of [agency-agents](https://github.com/msitarzewski/age
 
 | 🤖 AI 智能体 | 🌏 英文版翻译 | 🇨🇳 中国市场原创 | 🧠 支持工具 |
 |:---:|:---:|:---:|:---:|
-| **176** | **135** | **41** | **10 种** |
+| **176** | **135** | **41** | **11 种** |
 
 ---
 
@@ -28,7 +28,7 @@ Chinese community edition of [agency-agents](https://github.com/msitarzewski/age
 
 ### 方式一：一键安装到你的 AI 工具
 
-支持 **10 种主流 AI 编程工具**，一条命令搞定：
+支持 **11 种主流 AI 编程工具**，一条命令搞定：
 
 ```bash
 # 自动检测已安装的工具，一键安装
@@ -38,6 +38,7 @@ Chinese community edition of [agency-agents](https://github.com/msitarzewski/age
 ./scripts/install.sh --tool claude-code    # Claude Code
 ./scripts/install.sh --tool copilot        # GitHub Copilot
 ./scripts/install.sh --tool cursor         # Cursor
+./scripts/install.sh --tool trae           # Trae
 ./scripts/install.sh --tool openclaw       # OpenClaw
 ./scripts/install.sh --tool opencode       # OpenCode
 ./scripts/install.sh --tool aider          # Aider
@@ -435,7 +436,7 @@ cp -r marketing/*.md ~/.claude/agents/
 
 ## 工具集成
 
-支持 **10 种主流 AI 编程工具**，通过 `scripts/` 目录下的脚本实现格式转换和一键安装。
+支持 **11 种主流 AI 编程工具**，通过 `scripts/` 目录下的脚本实现格式转换和一键安装。
 
 ### 支持的工具
 
@@ -448,6 +449,7 @@ cp -r marketing/*.md ~/.claude/agents/
 | **Gemini CLI** | `~/.gemini/extensions/agency-agents/` | 全局，需转换 |
 | **Qwen Code** | `.qwen/agents/` | 项目级，需转换 |
 | **Cursor** | `.cursor/rules/` | 项目级，需转换 |
+| **Trae** | `.trae/rules/` | 项目级，需转换 |
 | **OpenCode** | `.opencode/agents/` | 项目级，需转换 |
 | **Aider** | `CONVENTIONS.md` | 项目级，需转换 |
 | **Windsurf** | `.windsurfrules` | 项目级，需转换 |
@@ -566,6 +568,18 @@ cd /your/project
 ./scripts/convert.sh --tool cursor
 cd /your/project
 /path/to/agency-agents-zh/scripts/install.sh --tool cursor
+```
+</details>
+
+<details>
+<summary><strong>Trae</strong></summary>
+
+转换为 Trae rule 文件并安装到项目目录 `.trae/rules/`。格式与 Cursor 类似。
+
+```bash
+./scripts/convert.sh --tool trae
+cd /your/project
+/path/to/agency-agents-zh/scripts/install.sh --tool trae
 ```
 </details>
 

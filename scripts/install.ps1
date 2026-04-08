@@ -1,4 +1,4 @@
-# install.ps1 — 将智能体安装到本地 AI 工具中（Windows 版）
+﻿# install.ps1 — 将智能体安装到本地 AI 工具中（Windows 版）
 #
 # 读取 integrations/ 中的转换文件，复制到各工具的配置目录。
 # 请先运行 scripts\convert.ps1 生成集成文件。

@@ -1,4 +1,4 @@
-# convert.ps1 — 将智能体 .md 文件转换为各工具专用格式（Windows 版）
+﻿# convert.ps1 — 将智能体 .md 文件转换为各工具专用格式（Windows 版）
 #
 # 读取所有智能体目录中的 .md 文件，输出到 integrations/<tool>/。
 # 添加或修改智能体后运行此脚本重新生成集成文件。
